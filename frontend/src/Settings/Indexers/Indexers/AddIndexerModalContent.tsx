@@ -30,16 +30,19 @@ function AddIndexerModalContent({
   const { isSchemaFetching, isSchemaPopulated, schemaError, schema } =
     useSelector((state: AppState) => state.settings.indexers);
 
-  const { usenetIndexers, torrentIndexers } = useMemo(() => {
+  const { usenetIndexers, torrentIndexers, ed2kIndexers } = useMemo(() => {
     return schema.reduce<{
       usenetIndexers: Indexer[];
       torrentIndexers: Indexer[];
+      ed2kIndexers: Indexer[];
     }>(
       (acc, item) => {
         if (item.protocol === 'usenet') {
           acc.usenetIndexers.push(item);
         } else if (item.protocol === 'torrent') {
           acc.torrentIndexers.push(item);
+        } else if (item.protocol === 'kad' || item.protocol === 'ed2kGlobal') {
+          acc.ed2kIndexers.push(item);
         }
 
         return acc;
@@ -47,6 +50,7 @@ function AddIndexerModalContent({
       {
         usenetIndexers: [],
         torrentIndexers: [],
+        ed2kIndexers: [],
       }
     );
   }, [schema]);
@@ -91,6 +95,21 @@ function AddIndexerModalContent({
             <FieldSet legend={translate('Torrents')}>
               <div className={styles.indexers}>
                 {torrentIndexers.map((indexer) => {
+                  return (
+                    <AddIndexerItem
+                      key={indexer.implementation}
+                      {...indexer}
+                      implementation={indexer.implementation}
+                      onIndexerSelect={onIndexerSelect}
+                    />
+                  );
+                })}
+              </div>
+            </FieldSet>
+
+            <FieldSet legend="eD2k / Kad">
+              <div className={styles.indexers}>
+                {ed2kIndexers.map((indexer) => {
                   return (
                     <AddIndexerItem
                       key={indexer.implementation}
