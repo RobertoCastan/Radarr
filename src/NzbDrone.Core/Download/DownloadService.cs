@@ -78,7 +78,9 @@ namespace NzbDrone.Core.Download
             remoteMovie.SeedConfiguration = _seedConfigProvider.GetSeedConfiguration(remoteMovie);
 
             // Limit grabs to 2 per second.
-            if (remoteMovie.Release.DownloadUrl.IsNotNullOrWhiteSpace() && !remoteMovie.Release.DownloadUrl.StartsWith("magnet:"))
+            if (remoteMovie.Release.DownloadUrl.IsNotNullOrWhiteSpace() &&
+                !remoteMovie.Release.DownloadUrl.StartsWith("magnet:") &&
+                !remoteMovie.Release.DownloadUrl.StartsWith("ed2k://"))
             {
                 var url = new HttpUri(remoteMovie.Release.DownloadUrl);
                 await _rateLimitService.WaitAndPulseAsync(url.Host, TimeSpan.FromSeconds(2));
