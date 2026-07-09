@@ -41,7 +41,7 @@ function AddIndexerModalContent({
           acc.usenetIndexers.push(item);
         } else if (item.protocol === 'torrent') {
           acc.torrentIndexers.push(item);
-        } else if (item.protocol === 'kad' || item.protocol === 'ed2kGlobal') {
+        } else if (item.protocol === 'ed2k') {
           acc.ed2kIndexers.push(item);
         }
 
