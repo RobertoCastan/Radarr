@@ -903,6 +903,7 @@
   "IndexerSearchCheckNoAutomaticMessage": "No indexers available with Automatic Search enabled, {appName} will not provide any automatic search results",
   "IndexerSearchCheckNoAvailableIndexersMessage": "All search-capable indexers are temporarily unavailable due to recent indexer errors",
   "IndexerSearchCheckNoInteractiveMessage": "No indexers available with Interactive Search enabled, {appName} will not provide any interactive search results",
+  "IndexerAMuleSettingsSearchDelayHelpText": "Seconds to wait for aMule search results after starting each search.",
   "IndexerAMuleSettingsSearchNetworkHelpText": "eD2k Global searches connected servers, Kad searches the Kad network, and Both runs both searches which can take longer.",
   "IndexerSettings": "Indexer Settings",
   "IndexerSettingsAdditionalParameters": "Additional Parameters",

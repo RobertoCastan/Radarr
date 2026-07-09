@@ -33,7 +33,7 @@ namespace NzbDrone.Core.Test.IndexerTests.AMuleTests
             };
 
             Mocker.GetMock<IAMuleProxy>()
-                .Setup(v => v.Search(It.IsAny<AMuleSettings>(), It.IsAny<AMuleSearchType>(), It.IsAny<string>()))
+                .Setup(v => v.Search(It.IsAny<AMuleSettings>(), It.IsAny<AMuleSearchType>(), It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(new List<AMuleSearchResult>());
         }
 
@@ -46,7 +46,21 @@ namespace NzbDrone.Core.Test.IndexerTests.AMuleTests
             });
 
             Mocker.GetMock<IAMuleProxy>()
-                .Verify(v => v.Search(It.IsAny<AMuleSettings>(), AMuleSearchType.Kad, "Droned 2026"), Times.Once());
+                .Verify(v => v.Search(It.IsAny<AMuleSettings>(), AMuleSearchType.Kad, "Droned 2026", 5), Times.Once());
+        }
+
+        [Test]
+        public async Task should_use_configured_search_delay()
+        {
+            ((AMuleIndexerSettings)Subject.Definition.Settings).SearchDelay = 9;
+
+            await Subject.Fetch(new MovieSearchCriteria
+            {
+                Movie = new Movie { Title = "Droned", Year = 2026 }
+            });
+
+            Mocker.GetMock<IAMuleProxy>()
+                .Verify(v => v.Search(It.IsAny<AMuleSettings>(), AMuleSearchType.Kad, "Droned 2026", 9), Times.Once());
         }
 
         [Test]
@@ -60,9 +74,9 @@ namespace NzbDrone.Core.Test.IndexerTests.AMuleTests
             });
 
             Mocker.GetMock<IAMuleProxy>()
-                .Verify(v => v.Search(It.IsAny<AMuleSettings>(), AMuleSearchType.Ed2kGlobal, "Droned 2026"), Times.Once());
+                .Verify(v => v.Search(It.IsAny<AMuleSettings>(), AMuleSearchType.Ed2kGlobal, "Droned 2026", 5), Times.Once());
             Mocker.GetMock<IAMuleProxy>()
-                .Verify(v => v.Search(It.IsAny<AMuleSettings>(), AMuleSearchType.Kad, "Droned 2026"), Times.Once());
+                .Verify(v => v.Search(It.IsAny<AMuleSettings>(), AMuleSearchType.Kad, "Droned 2026", 5), Times.Once());
         }
 
         [Test]
@@ -71,7 +85,7 @@ namespace NzbDrone.Core.Test.IndexerTests.AMuleTests
             ((AMuleIndexerSettings)Subject.Definition.Settings).SearchType = AMuleSearchType.Both;
 
             Mocker.GetMock<IAMuleProxy>()
-                .Setup(v => v.Search(It.IsAny<AMuleSettings>(), AMuleSearchType.Ed2kGlobal, It.IsAny<string>()))
+                .Setup(v => v.Search(It.IsAny<AMuleSettings>(), AMuleSearchType.Ed2kGlobal, It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(new List<AMuleSearchResult>
                 {
                     new AMuleSearchResult
@@ -83,7 +97,7 @@ namespace NzbDrone.Core.Test.IndexerTests.AMuleTests
                     }
                 });
             Mocker.GetMock<IAMuleProxy>()
-                .Setup(v => v.Search(It.IsAny<AMuleSettings>(), AMuleSearchType.Kad, It.IsAny<string>()))
+                .Setup(v => v.Search(It.IsAny<AMuleSettings>(), AMuleSearchType.Kad, It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(new List<AMuleSearchResult>
                 {
                     new AMuleSearchResult
