@@ -17,7 +17,7 @@ namespace NzbDrone.Core.Download.Clients.AMule
         public ushort Name { get; set; }
         public byte Type { get; set; }
         public byte[] Data { get; set; }
-        public List<AMuleEcTag> Children { get; set; } = new ();
+        public List<AMuleEcTag> Children { get; set; } = new();
 
         public string StringValue => Data == null ? null : Encoding.UTF8.GetString(Data).TrimEnd('\0');
 

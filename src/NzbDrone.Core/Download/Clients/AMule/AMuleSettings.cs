@@ -17,7 +17,7 @@ namespace NzbDrone.Core.Download.Clients.AMule
 
     public class AMuleSettings : DownloadClientSettingsBase<AMuleSettings>
     {
-        private static readonly AMuleSettingsValidator Validator = new ();
+        private static readonly AMuleSettingsValidator Validator = new();
 
         public AMuleSettings()
         {

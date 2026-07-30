@@ -27,7 +27,7 @@ namespace NzbDrone.Core.Download.Clients.AMule
     public class AMulePreferences
     {
         public string IncomingDirectory { get; set; }
-        public List<AMuleCategory> Categories { get; set; } = new ();
+        public List<AMuleCategory> Categories { get; set; } = new();
     }
 
     public class AMuleCategory

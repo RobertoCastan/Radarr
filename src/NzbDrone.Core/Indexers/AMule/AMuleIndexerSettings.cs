@@ -22,7 +22,7 @@ namespace NzbDrone.Core.Indexers.AMule
 
     public class AMuleIndexerSettings : PropertywiseEquatable<AMuleIndexerSettings>, IIndexerSettings
     {
-        private static readonly AMuleIndexerSettingsValidator Validator = new ();
+        private static readonly AMuleIndexerSettingsValidator Validator = new();
 
         public AMuleIndexerSettings()
         {

@@ -18,7 +18,7 @@ namespace NzbDrone.Core.Indexers.Ed2k
 
     public class Ed2kRssIndexerSettings : PropertywiseEquatable<Ed2kRssIndexerSettings>, IIndexerSettings
     {
-        private static readonly Ed2kRssIndexerSettingsValidator Validator = new ();
+        private static readonly Ed2kRssIndexerSettingsValidator Validator = new();
 
         public Ed2kRssIndexerSettings()
         {

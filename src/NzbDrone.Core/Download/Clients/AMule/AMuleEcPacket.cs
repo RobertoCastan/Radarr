@@ -5,7 +5,7 @@ namespace NzbDrone.Core.Download.Clients.AMule
     public class AMuleEcPacket
     {
         public byte OpCode { get; set; }
-        public List<AMuleEcTag> Tags { get; set; } = new ();
+        public List<AMuleEcTag> Tags { get; set; } = new();
 
         public AMuleEcPacket()
         {
